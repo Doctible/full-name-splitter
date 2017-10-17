@@ -93,8 +93,8 @@ module FullNameSplitter
     
     if name.include?(',')
       name.
-        split(/\s*,\s*/, 2).            # ",van  helsing" produces  ["", "van helsing"]
-        map{ |u| u.empty? ? nil : u }   # but it should be [nil, "van helsing"] by lib convection
+        split(/\s*,\s*/, 2).reverse.    # ",George" produces  ["George", ""]
+        map{ |u| u.empty? ? nil : u }   # but it should be ["George", nil] by lib convection
     else
       splitter = Splitter.new(name)
       [splitter.first_name, splitter.last_name]

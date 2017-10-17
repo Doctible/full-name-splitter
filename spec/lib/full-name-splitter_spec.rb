@@ -31,7 +31,6 @@ describe Incognito do
       "Gabriel Van Helsing"           => ["Gabriel",        "Van Helsing"         ],
       "Pierre de Montesquiou"         => ["Pierre",         "de Montesquiou"      ],
       "Charles d'Artagnan"            => ["Charles",        "d'Artagnan"          ],
-      "Jaazaniah ben Shaphan"         => ["Jaazaniah",      "ben Shaphan"         ],
       "Noda' bi-Yehudah"              => ["Noda'",          "bi-Yehudah"          ],
       "Maria del Carmen Menendez"     => ["Maria",          "del Carmen Menendez" ],
       "Alessandro Del Piero"          => ["Alessandro",     "Del Piero"           ],
@@ -84,18 +83,18 @@ describe Incognito do
       # the architect Ludwig Mies van der Rohe, from the West German city of Aachen, was originally Ludwig Mies;
       "Ludwig Mies van der Rohe"      => ["Ludwig",         "Mies van der Rohe"   ],
 
-      # If comma is provided then split by comma
+      # If comma is provided then split by comma and reverse
 
-      "John, Quincy Adams"             => ["John",    "Quincy Adams"              ],
-      "Ludwig Mies, van der Rohe"      => ["Ludwig Mies", "van der Rohe"          ],
+      "Quincy Adams, John"             => ["John",    "Quincy Adams"              ],
+      "van der Rohe, Ludwig Mies"      => ["Ludwig Mies", "van der Rohe"          ],
 
       # Test ignoring unnecessary whitespaces
       "\t Ludwig  Mies\t van der Rohe "   => ["Ludwig", "Mies van der Rohe"       ],
-      "\t Ludwig  Mies,\t van  der Rohe " => ["Ludwig Mies", "van der Rohe"       ],
+      "\t van  der Rohe ,\t Ludwig  Mies" => ["Ludwig Mies", "van der Rohe"       ],
       "\t Ludwig      "                   => ["Ludwig", nil                       ],
       "  van  helsing "                   => [nil, "van helsing"                  ],
-      " , van  helsing "                  => [nil, "van helsing"                  ],
-      "\t Ludwig  Mies,\t van  der Rohe " => ["Ludwig Mies", "van der Rohe"       ],
+      " van  helsing , "                  => [nil, "van helsing"                  ],
+      "\t van  der Rohe , Ludwig  Mies \t" => ["Ludwig Mies", "van der Rohe"       ],
 
     }.
 
