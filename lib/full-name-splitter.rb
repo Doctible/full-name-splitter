@@ -14,7 +14,13 @@ module FullNameSplitter
     end
 
     def split!
-      @units = @full_name.split(/\s+/)
+      if @full_name.include?(',')
+        @units = @full_name.
+          split(/\s*,\s*/, 2).reverse.    # ",George" produces  ["George", ""]
+          map{ |u| u.empty? ? nil : u }   # but it should be ["George", nil] by lib convection
+      else
+        @units = @full_name.split(/\s+/)
+      end
       while @unit = @units.shift do
         if prefix? or with_apostrophe? or (first_name? and last_unit? and not initial?)
           @last_name << @unit and break
@@ -25,6 +31,7 @@ module FullNameSplitter
       @last_name += @units
 
       adjust_exceptions!
+      de_upcase!
     end
 
     def first_name
@@ -49,7 +56,7 @@ module FullNameSplitter
     # O'Connor, d'Artagnan match
     # Noda' doesn't match
     def with_apostrophe?
-      @unit =~ /\w{1}'\w+/
+      @unit =~ /\w{1}\'\w+/
     end
     
     def last_unit?
@@ -76,6 +83,15 @@ module FullNameSplitter
         end
       end
     end
+
+    def de_upcase!
+      @first_name = @first_name.map(&:capitalize) if all_caps? first_name
+      @last_name = @last_name.map(&:capitalize) if all_caps? last_name
+    end
+
+    def all_caps? name
+      name && name == name.upcase
+    end
   end
   
   def full_name
@@ -85,21 +101,15 @@ module FullNameSplitter
   def full_name=(name)
     self.first_name, self.last_name = split(name)
   end
-  
+
   private 
   
   def split(name)
     name = name.to_s.strip.gsub(/\s+/, ' ')
-    
-    if name.include?(',')
-      name.
-        split(/\s*,\s*/, 2).reverse.    # ",George" produces  ["George", ""]
-        map{ |u| u.empty? ? nil : u }   # but it should be ["George", nil] by lib convection
-    else
-      splitter = Splitter.new(name)
-      [splitter.first_name, splitter.last_name]
-    end
+
+    splitter = Splitter.new(name)
+    [splitter.first_name, splitter.last_name]
   end
-  
+
   module_function :split
 end

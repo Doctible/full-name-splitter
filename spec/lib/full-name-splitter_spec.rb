@@ -96,6 +96,10 @@ describe Incognito do
       " van  helsing , "                  => [nil, "van helsing"                  ],
       "\t van  der Rohe , Ludwig  Mies \t" => ["Ludwig Mies", "van der Rohe"       ],
 
+      # Test all caps
+      "JOHN SMITH"                    => ["John",           "Smith"              ],
+      "JOHN QUINCY ADAMS"             => ["John Quincy",    "Adams"              ],
+      "LUDWIG MIES VAN DER ROHE"      => ["Ludwig", "Mies Van Der Rohe"          ]
     }.
 
     each do |full_name, split_name|
