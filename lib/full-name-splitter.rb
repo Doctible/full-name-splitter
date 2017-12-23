@@ -54,7 +54,7 @@ module FullNameSplitter
 
     # M or W.
     def initial?
-      @unit =~ /^\w\.?$/
+      @unit =~ /^\w\.$/
     end
 
     def last_unit?

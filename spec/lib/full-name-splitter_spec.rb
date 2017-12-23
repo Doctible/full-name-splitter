@@ -48,6 +48,7 @@ describe Incognito do
       "O'Connor"                      => ["O'Connor",       nil                   ],
 
       "George"                        => ["George",         nil                   ],
+      "Ryan J"                        => ["Ryan",           "J"                   ],
       "Kevin J. "                     => ["Kevin J.",       nil                   ],
 
       "Thomas G. Della Fave"          => ["Thomas G.",      "Della Fave"          ],
