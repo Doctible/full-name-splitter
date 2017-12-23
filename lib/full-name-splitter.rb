@@ -22,7 +22,7 @@ module FullNameSplitter
         @units = @full_name.split(/\s+/)
       end
       while @unit = @units.shift do
-        if prefix? or with_apostrophe? or (first_name? and last_unit? and not initial?)
+        if prefix? or (first_name? and last_unit? and not initial?)
           @last_name << @unit and break
         else
           @first_name << @unit
@@ -53,12 +53,6 @@ module FullNameSplitter
       @unit =~ /^\w\.?$/
     end
 
-    # O'Connor, d'Artagnan match
-    # Noda' doesn't match
-    def with_apostrophe?
-      @unit =~ /\w{1}\'\w+/
-    end
-    
     def last_unit?
       @units.empty?
     end

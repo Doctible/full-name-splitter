@@ -44,8 +44,8 @@ describe Incognito do
       "John Quincy"                   => ["John",           "Quincy"              ],
       "George H. W."                  => ["George H. W.",   nil                   ],
       "Van Helsing"                   => [nil,              "Van Helsing"         ],
-      "d'Artagnan"                    => [nil,              "d'Artagnan"          ],
-      "O'Connor"                      => [nil,              "O'Connor"            ],
+      "d'Artagnan"                    => ["d'Artagnan",     nil                   ],
+      "O'Connor"                      => ["O'Connor",       nil                   ],
 
       "George"                        => ["George",         nil                   ],
       "Kevin J. "                     => ["Kevin J.",       nil                   ],
