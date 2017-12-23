@@ -21,6 +21,9 @@ module FullNameSplitter
       else
         @units = @full_name.split(/\s+/)
       end
+
+      @units_initial_count = @units.count
+
       while @unit = @units.shift do
         if prefix? or (first_name? and last_unit? and not initial?)
           @last_name << @unit and break
@@ -45,7 +48,8 @@ module FullNameSplitter
     private
 
     def prefix?
-      PREFIXES.include?(@unit.downcase)
+      # if first unit contains one of the prefixes, it's very likely it's just the first name
+      PREFIXES.include?(@unit.downcase) && !first_unit?
     end
 
     # M or W.
@@ -60,7 +64,11 @@ module FullNameSplitter
     def first_name?
       not @first_name.empty?
     end
-    
+
+    def first_unit?
+      @units_initial_count == (@units.count + 1)
+    end
+
     def adjust_exceptions!
       return if @first_name.size <= 1
       

@@ -43,7 +43,7 @@ describe Incognito do
 
       "John Quincy"                   => ["John",           "Quincy"              ],
       "George H. W."                  => ["George H. W.",   nil                   ],
-      "Van Helsing"                   => [nil,              "Van Helsing"         ],
+      "Van Helsing"                   => ["Van",            "Helsing"             ],
       "d'Artagnan"                    => ["d'Artagnan",     nil                   ],
       "O'Connor"                      => ["O'Connor",       nil                   ],
 
@@ -92,7 +92,7 @@ describe Incognito do
       "\t Ludwig  Mies\t van der Rohe "   => ["Ludwig", "Mies van der Rohe"       ],
       "\t van  der Rohe ,\t Ludwig  Mies" => ["Ludwig Mies", "van der Rohe"       ],
       "\t Ludwig      "                   => ["Ludwig", nil                       ],
-      "  van  helsing "                   => [nil, "van helsing"                  ],
+      "  van  helsing "                   => ["van", "helsing"                    ],
       " van  helsing , "                  => [nil, "van helsing"                  ],
       "\t van  der Rohe , Ludwig  Mies \t" => ["Ludwig Mies", "van der Rohe"       ],
 
