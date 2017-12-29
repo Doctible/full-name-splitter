@@ -85,9 +85,19 @@ describe Incognito do
       "Ludwig Mies van der Rohe"      => ["Ludwig",         "Mies van der Rohe"   ],
 
       # If comma is provided then split by comma and reverse
-
       "Quincy Adams, John"             => ["John",    "Quincy Adams"              ],
       "van der Rohe, Ludwig Mies"      => ["Ludwig Mies", "van der Rohe"          ],
+
+      # If name is Dr, Sr, Jr, II, III, IV
+      "Dr Kylo Ren"                    => ["Dr Kylo",       "Ren"                 ],
+      "Dr. Kylo Ren"                   => ["Dr. Kylo",      "Ren"                 ],
+      "Kylo Ren Sr."                   => ["Kylo",          "Ren Sr."             ],
+      "Kylo Ren Sr"                    => ["Kylo",          "Ren Sr"              ],
+      "Kylo Ren Jr."                   => ["Kylo",          "Ren Jr."             ],
+      "Kylo Ren Jr"                    => ["Kylo",          "Ren Jr"              ],
+      "Kylo Ren II"                    => ["Kylo",          "Ren II"              ],
+      "Kylo Ren III"                   => ["Kylo",          "Ren III"             ],
+      "Kylo Ren IV"                    => ["Kylo",          "Ren IV"              ],
 
       # Test ignoring unnecessary whitespaces
       "\t Ludwig  Mies\t van der Rohe "   => ["Ludwig", "Mies van der Rohe"       ],
