@@ -26,7 +26,10 @@ describe Incognito do
 
     {
       "John Smith"                    => ["John",           "Smith"               ],
-
+      ",Kevin J. O'Connor"            => ["Kevin J.",       "O'Connor"            ],
+      "Kevin J. O'Connor,"            => ["Kevin J.",       "O'Connor"            ],
+      ",Kevin"                        => ["Kevin",          nil                   ],
+      "Kevin,"                        => ["Kevin",          nil                   ],
       "Kevin J. O'Connor"             => ["Kevin J.",       "O'Connor"            ],
       "Gabriel Van Helsing"           => ["Gabriel",        "Van Helsing"         ],
       "Pierre de Montesquiou"         => ["Pierre",         "de Montesquiou"      ],

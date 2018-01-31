@@ -105,7 +105,7 @@ module FullNameSplitter
   private 
   
   def split(name)
-    name = name.to_s.strip.gsub(/\s+/, ' ')
+    name = name.to_s.strip.gsub(/\s+/, ' ').gsub(/,$/, '').gsub(/^,/, '')
 
     splitter = Splitter.new(name)
     [splitter.first_name, splitter.last_name]
