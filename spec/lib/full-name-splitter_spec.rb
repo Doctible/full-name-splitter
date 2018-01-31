@@ -107,8 +107,8 @@ describe Incognito do
       "\t van  der Rohe ,\t Ludwig  Mies" => ["Ludwig Mies", "van der Rohe"       ],
       "\t Ludwig      "                   => ["Ludwig", nil                       ],
       "  van  helsing "                   => ["van", "helsing"                    ],
-      " van  helsing , "                  => [nil, "van helsing"                  ],
-      "\t van  der Rohe , Ludwig  Mies \t" => ["Ludwig Mies", "van der Rohe"       ],
+      " van  helsing , "                  => ["van", "helsing"                    ],
+      "\t van  der Rohe , Ludwig  Mies \t" => ["Ludwig Mies", "van der Rohe"      ],
 
       # Test all caps
       "JOHN SMITH"                    => ["John",           "Smith"              ],
