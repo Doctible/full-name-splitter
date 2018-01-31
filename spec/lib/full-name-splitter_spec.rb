@@ -46,11 +46,12 @@ describe Incognito do
 
       "John Quincy"                   => ["John",           "Quincy"              ],
       "George H. W."                  => ["George H. W.",   nil                   ],
-      "Van Helsing"                   => [nil,              "Van Helsing"         ],
-      "d'Artagnan"                    => [nil,              "d'Artagnan"          ],
-      "O'Connor"                      => [nil,              "O'Connor"            ],
+      "Van Helsing"                   => ["Van",            "Helsing"             ],
+      "d'Artagnan"                    => ["d'Artagnan",     nil                   ],
+      "O'Connor"                      => ["O'Connor",       nil                   ],
 
       "George"                        => ["George",         nil                   ],
+      "Ryan J"                        => ["Ryan",           "J"                   ],
       "Kevin J. "                     => ["Kevin J.",       nil                   ],
 
       "Thomas G. Della Fave"          => ["Thomas G.",      "Della Fave"          ],
@@ -87,15 +88,25 @@ describe Incognito do
       "Ludwig Mies van der Rohe"      => ["Ludwig",         "Mies van der Rohe"   ],
 
       # If comma is provided then split by comma and reverse
-
       "Quincy Adams, John"             => ["John",    "Quincy Adams"              ],
       "van der Rohe, Ludwig Mies"      => ["Ludwig Mies", "van der Rohe"          ],
+
+      # If name is Dr, Sr, Jr, II, III, IV
+      "Dr Kylo Ren"                    => ["Dr Kylo",       "Ren"                 ],
+      "Dr. Kylo Ren"                   => ["Dr. Kylo",      "Ren"                 ],
+      "Kylo Ren Sr."                   => ["Kylo",          "Ren Sr."             ],
+      "Kylo Ren Sr"                    => ["Kylo",          "Ren Sr"              ],
+      "Kylo Ren Jr."                   => ["Kylo",          "Ren Jr."             ],
+      "Kylo Ren Jr"                    => ["Kylo",          "Ren Jr"              ],
+      "Kylo Ren II"                    => ["Kylo",          "Ren II"              ],
+      "Kylo Ren III"                   => ["Kylo",          "Ren III"             ],
+      "Kylo Ren IV"                    => ["Kylo",          "Ren IV"              ],
 
       # Test ignoring unnecessary whitespaces
       "\t Ludwig  Mies\t van der Rohe "   => ["Ludwig", "Mies van der Rohe"       ],
       "\t van  der Rohe ,\t Ludwig  Mies" => ["Ludwig Mies", "van der Rohe"       ],
       "\t Ludwig      "                   => ["Ludwig", nil                       ],
-      "  van  helsing "                   => [nil, "van helsing"                  ],
+      "  van  helsing "                   => ["van", "helsing"                    ],
       " van  helsing , "                  => [nil, "van helsing"                  ],
       "\t van  der Rohe , Ludwig  Mies \t" => ["Ludwig Mies", "van der Rohe"       ],
 

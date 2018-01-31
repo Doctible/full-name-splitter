@@ -4,6 +4,9 @@ module FullNameSplitter
 
   PREFIXES = %w(de da la du del dei vda. dello della degli delle van von der den heer ten ter vande vanden vander voor ver aan mc).freeze
 
+  LAST_NAME_SUFFIX = %w(sr sr. jr jr. ii iii iv).freeze
+  LAST_NAME_ALL_CAPS_SUFFIX = %w(II III IV).freeze
+
   class Splitter
     
     def initialize(full_name)
@@ -21,8 +24,11 @@ module FullNameSplitter
       else
         @units = @full_name.split(/\s+/)
       end
+
+      @units_initial_count = @units.count
+
       while @unit = @units.shift do
-        if prefix? or with_apostrophe? or (first_name? and last_unit? and not initial?)
+        if prefix? or (first_name? and last_unit? and not initial?) or (first_name? and second_last_unit? and last_name_suffix?)
           @last_name << @unit and break
         else
           @first_name << @unit
@@ -45,20 +51,23 @@ module FullNameSplitter
     private
 
     def prefix?
-      PREFIXES.include?(@unit.downcase)
+      # if first unit contains one of the prefixes, it's very likely it's just the first name
+      PREFIXES.include?(@unit.downcase) && !first_unit?
+    end
+
+    def last_name_suffix?
+      LAST_NAME_SUFFIX.include?(@full_name.split(/\s+/).last.downcase)
     end
 
     # M or W.
     def initial?
-      @unit =~ /^\w\.?$/
+      @unit =~ /^\w\.$/
     end
 
-    # O'Connor, d'Artagnan match
-    # Noda' doesn't match
-    def with_apostrophe?
-      @unit =~ /\w{1}\'\w+/
+    def second_last_unit?
+      (@units.count + 1) == 2
     end
-    
+
     def last_unit?
       @units.empty?
     end
@@ -66,7 +75,11 @@ module FullNameSplitter
     def first_name?
       not @first_name.empty?
     end
-    
+
+    def first_unit?
+      @units_initial_count == (@units.count + 1)
+    end
+
     def adjust_exceptions!
       return if @first_name.size <= 1
       
@@ -86,7 +99,7 @@ module FullNameSplitter
 
     def de_upcase!
       @first_name = @first_name.map(&:capitalize) if all_caps? first_name
-      @last_name = @last_name.map(&:capitalize) if all_caps? last_name
+      @last_name = @last_name.reject{|x| LAST_NAME_ALL_CAPS_SUFFIX.include?(x)}.map(&:capitalize) if all_caps? last_name
     end
 
     def all_caps? name
