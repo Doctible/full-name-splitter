@@ -116,7 +116,7 @@ describe Incognito do
       "LUDWIG MIES VAN DER ROHE"      => ["Ludwig", "Mies Van Der Rohe"          ],
 
       # Test special characters at end
-      "John Applseed^*+"                    => ["John",           "Appleseed"    ],
+      "John Appleseed^*+"                   => ["John",           "Appleseed"    ],
       "Heather Howard ^*"                   => ["Heather",        "Howard"       ],
       "Katie Weber + ^"                     => ["Katie",          "Weber"        ]
     }.

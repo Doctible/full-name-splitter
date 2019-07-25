@@ -17,6 +17,7 @@ module FullNameSplitter
     end
 
     def split!
+      remove_special_characters!
       if @full_name.include?(',')
         @units = @full_name.
           split(/\s*,\s*/, 2).reverse.    # ",George" produces  ["George", ""]
@@ -102,21 +103,25 @@ module FullNameSplitter
       @last_name = @last_name.reject{|x| LAST_NAME_ALL_CAPS_SUFFIX.include?(x)}.map(&:capitalize) if all_caps? last_name
     end
 
+    def remove_special_characters!
+      @full_name = @full_name.gsub(/[!@#$%^&+=*]/, "")
+    end
+
     def all_caps? name
       name && name == name.upcase
     end
   end
-  
+
   def full_name
     [first_name, last_name].compact.join(' ')
   end
-  
+
   def full_name=(name)
     self.first_name, self.last_name = split(name)
   end
 
-  private 
-  
+  private
+
   def split(name)
     name = name.to_s.strip.gsub(/\s+/, ' ').gsub(/,$/, '').gsub(/^,/, '')
 
