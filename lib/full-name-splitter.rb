@@ -8,7 +8,7 @@ module FullNameSplitter
   LAST_NAME_ALL_CAPS_SUFFIX = %w(II III IV).freeze
 
   class Splitter
-    
+
     def initialize(full_name)
       @full_name  = full_name
       @first_name = []
@@ -72,7 +72,7 @@ module FullNameSplitter
     def last_unit?
       @units.empty?
     end
-    
+
     def first_name?
       not @first_name.empty?
     end
@@ -83,12 +83,12 @@ module FullNameSplitter
 
     def adjust_exceptions!
       return if @first_name.size <= 1
-      
-      # Adjusting exceptions like 
+
+      # Adjusting exceptions like
       # "Ludwig Mies van der Rohe"      => ["Ludwig",         "Mies van der Rohe"   ]
       # "Juan Martín de la Cruz Gómez"  => ["Juan Martín",    "de la Cruz Gómez"    ]
       # "Javier Reyes de la Barrera"    => ["Javier",         "Reyes de la Barrera" ]
-      # Rosa María Pérez Martínez Vda. de la Cruz 
+      # Rosa María Pérez Martínez Vda. de la Cruz
       #                                 => ["Rosa María",     "Pérez Martínez Vda. de la Cruz"]
       if last_name =~ /^(van der|(vda\. )?de la \w+$)/i
         loop do
@@ -104,7 +104,7 @@ module FullNameSplitter
     end
 
     def remove_special_characters!
-      @full_name = @full_name.gsub(/[!@#$%^&+=*]/, "")
+      @full_name = @full_name.gsub(/[!?~:;<>@#$%^&+=*]/, "")
     end
 
     def all_caps? name
