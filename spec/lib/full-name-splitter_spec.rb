@@ -113,17 +113,22 @@ describe Incognito do
       # Test all caps
       "JOHN SMITH"                    => ["John",           "Smith"              ],
       "JOHN QUINCY ADAMS"             => ["John Quincy",    "Adams"              ],
-      "LUDWIG MIES VAN DER ROHE"      => ["Ludwig", "Mies Van Der Rohe"          ]
+      "LUDWIG MIES VAN DER ROHE"      => ["Ludwig", "Mies Van Der Rohe"          ],
+
+      # Test special characters at end
+      "John Appleseed^*+"                   => ["John",           "Appleseed"    ],
+      "Heather Howard ^*"                   => ["Heather",        "Howard"       ],
+      "Katie Weber + ^"                     => ["Katie",          "Weber"        ]
     }.
 
     each do |full_name, split_name|
       it "should split #{full_name} to '#{split_name.first}' and '#{split_name.last}'" do
         subject.full_name = full_name
-        gum(subject.first_name, subject.last_name).should == gum(*split_name)
+        expect(gum(subject.first_name, subject.last_name)).to eq(gum(*split_name))
       end
 
       it "should split #{full_name} to '#{split_name.first}' and '#{split_name.last}' when called as module function" do
-        FullNameSplitter.split(full_name).should == split_name
+        expect(FullNameSplitter.split(full_name)).to eq(split_name)
       end
 
     end
