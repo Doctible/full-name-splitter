@@ -1,4 +1,4 @@
-#FullNameSplitter
+# FullNameSplitter
 
 *FullNameSplitter* splits full name into first and last name considering name prefixes and initials
 
@@ -7,12 +7,12 @@ If you include the module it requires attribute accessors first\_name and last\_
 For example
 
     require 'full_name_splitter'
-    
+
     class Incognito
       include FullNameSplitter
       attr_accessor :first_name, :last_name
     end
-    
+
     incognito = Incognito.new :full_name => "George H. W. Bush"
     incognito.first_name # => "George H. W."
     incognito.last_name  # => "Bush"
@@ -53,12 +53,12 @@ Also you can use splitter directly by calling module function FullNameSplitter::
 
     FullNameSplitter.split("Juan Martín de la Cruz Gómez")  # => ["Juan Martín", "de la Cruz Gómez"]
     FullNameSplitter.split("Ludwig Mies van der Rohe")      # => ["Ludwig", "Mies van der Rohe"]
-    
+
 If the lib can't split a name correctly, it is possible to split by comma
 
     FullNameSplitter.split("John Quincy Adams")   # => ["John Quincy", "Adams"]
     FullNameSplitter.split("John, Quincy Adams")  # => ["John", "Quincy Adams"]
-    
-##Copyright
+
+## Copyright
 
 Created by Pavel Gorbokon. Contributed by Michael S. Klishin and Trevor Creech. Released under the MIT license.
