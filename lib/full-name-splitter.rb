@@ -100,7 +100,7 @@ module FullNameSplitter
 
     def de_upcase!
       @first_name = @first_name.map(&:capitalize) if all_caps? first_name
-      @last_name = @last_name.reject{|x| LAST_NAME_ALL_CAPS_SUFFIX.include?(x)}.map(&:capitalize) if all_caps? last_name
+      @last_name = @last_name.compact.reject{|x| LAST_NAME_ALL_CAPS_SUFFIX.include?(x)}.map(&:capitalize) if all_caps? last_name
     end
 
     def remove_special_characters!
